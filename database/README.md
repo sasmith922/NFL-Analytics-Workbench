@@ -1,8 +1,10 @@
 # Database
 
-This directory will contain PostgreSQL schema management.
+PostgreSQL foundation assets and schema lifecycle placeholders.
 
-Planned submodules:
-- migrations
-- seed_data
-- schema_docs
+## Structure
+
+- `migrations` - migration files (Alembic or SQL migration chain)
+- `seed_data` - optional local bootstrap datasets
+- `schema_docs` - schema references and diagrams
+- `init` - SQL scripts run at local database initialization

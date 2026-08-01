@@ -1,101 +1,65 @@
 # NFL Analytics Workbench
 
-## Overview
+Production-quality sports analytics platform foundation focused on maintainability, modularity, and long-term scalability.
 
-NFL Analytics Workbench is a production-quality sports analytics platform focused on historical NFL data exploration, visualization, and predictive modeling.
+## Foundation Status
 
-The goal is not to build another statistics website, but to create an analytics environment similar to Tableau or Jupyter Notebook that is tailored specifically for football.
+This repository is currently configured for **development foundation only**:
 
-The platform emphasizes:
+- Architectural boundaries and module scaffolds are in place
+- Docker Compose runs PostgreSQL + backend + frontend locally
+- Environment variable management is defined through `.env` and typed settings
+- Linting, formatting, testing, and pre-commit tooling are configured
+- Placeholder modules exist for backend, frontend, pipeline, and database subsystems
 
-- Interactive data exploration
-- Advanced visualizations
-- Predictive modeling
-- Fantasy football analytics
-- Reproducible analysis
-- Long-term extensibility
-
-Future versions will support additional sports while sharing the same underlying architecture.
-
----
-
-## Project Goals
-
-- Modular architecture
-- Clean separation of concerns
-- Production-quality code
-- Strong typing
-- Reusable components
-- Reproducible analytics
-- Scalable infrastructure
-
----
-
-## High-Level Architecture
-
-Data Pipeline
-        ↓
- PostgreSQL Database
-        ↓
- FastAPI Backend
-        ↓
- React Frontend
-
-Each layer has a single responsibility.
-
----
+No product features are implemented yet.
 
 ## Repository Structure
 
-backend/
+- `backend/` - FastAPI backend scaffold (clean architecture boundaries)
+- `frontend/` - React + TypeScript + Vite UI scaffold
+- `pipeline/` - staged ingestion pipeline scaffold (extract/validate/transform/load/verify)
+- `database/` - PostgreSQL initialization and schema lifecycle placeholders
+- `docker/` - local container orchestration
+- `docs/` - architecture and engineering documentation
+- `scripts/` - automation script placeholders
 
-frontend/
+## Quick Start
 
-pipeline/
+1. Copy environment variables:
 
-database/
+```bash
+cp .env.example .env
+```
 
-docs/
+2. Start local stack:
 
-docker/
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
 
-scripts/
+3. Verify services:
 
----
+- Backend: `http://localhost:8000/health`
+- Frontend: `http://localhost:5173`
+- PostgreSQL: `localhost:5432`
 
-## Technology Stack
+4. Stop stack:
 
-Backend
+```bash
+docker compose -f docker/docker-compose.yml down --volumes
+```
 
-- Python
-- FastAPI
-- SQLAlchemy
-- Alembic
-- Polars
-- Pandas
-- scikit-learn
+## Local Development Commands
 
-Frontend
-
-- React
-- TypeScript
-- Vite
-- TailwindCSS
-- TanStack Query
-- TanStack Table
-- Plotly
-
-Database
-
-- PostgreSQL
-
-Infrastructure
-
-- Docker
-- GitHub Actions
-
----
-
-## Documentation
-
-See the `/docs` directory for project architecture, coding standards, and development guidelines.
+```bash
+make backend-install
+make backend-lint
+make backend-test
+make frontend-install
+make frontend-lint
+make frontend-format-check
+make frontend-test
+make pipeline-test
+make pre-commit-install
+```

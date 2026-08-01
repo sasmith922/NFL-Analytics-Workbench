@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -12,26 +10,38 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ../database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nfl_user} -d ${POSTGRES_DB:-nfl_analytics}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
       context: ..
       dockerfile: backend/Dockerfile
     env_file:
-      - ../.env
+      - path: ../.env
+        required: false
     environment:
       POSTGRES_HOST: postgres
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   frontend:
     build:
       context: ..
       dockerfile: frontend/Dockerfile
     env_file:
-      - ../.env
+      - path: ../.env
+        required: false
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+      VITE_LOG_LEVEL: ${VITE_LOG_LEVEL:-info}
     ports:
       - "5173:5173"
     depends_on:

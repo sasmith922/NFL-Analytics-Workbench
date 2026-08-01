@@ -2,66 +2,28 @@
 
 ## General
 
-Prefer readability over cleverness.
+- Prefer readability over cleverness
+- Keep modules focused on one responsibility
+- Avoid duplicated business logic
+- Favor composition over inheritance
+- Handle errors explicitly and log useful context
 
-Prefer explicit code.
+## Backend (Python)
 
-Avoid unnecessary abstractions.
+- Use type hints for all public interfaces
+- Keep API routes thin: validate, call service, return response
+- Keep SQL/data access logic in repositories
+- Run `ruff`, `mypy`, and `pytest` before merging
 
-Include comments to explain blocks of code.
+## Frontend (TypeScript/React)
 
----
+- Keep components presentational where possible
+- Put reusable behavior into hooks
+- Keep backend communication inside `src/api`
+- Run lint, format check, and tests before merging
 
-## Python
+## Pipeline
 
-Use type hints.
-
-Document public functions.
-
-Keep functions small.
-
-Avoid global state.
-
----
-
-## React
-
-Keep components focused.
-
-Extract reusable hooks.
-
-Avoid duplicated UI logic.
-
----
-
-## Naming
-
-Classes: PascalCase
-
-Functions: snake_case (Python)
-
-React Components: PascalCase
-
-Variables: descriptive names
-
-Avoid abbreviations.
-
----
-
-## Testing
-
-Every feature should include tests.
-
-Prefer unit tests.
-
-Keep tests independent.
-
----
-
-## Error Handling
-
-Handle errors gracefully.
-
-Avoid silent failures.
-
-Log meaningful information.
+- Keep stages independent: extract, validate, transform, load, verify
+- Keep provider-specific code behind adapters
+- Ensure each stage is independently testable
