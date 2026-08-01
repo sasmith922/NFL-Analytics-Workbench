@@ -6,3 +6,4 @@ def test_settings_defaults() -> None:
 
     assert settings.environment == "development"
     assert settings.backend_port == 8000
+    assert settings.sqlalchemy_database_url.startswith("postgresql+psycopg://")
