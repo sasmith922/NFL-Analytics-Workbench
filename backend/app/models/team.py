@@ -20,21 +20,20 @@ class Team(Base, TimestampedModel):
     conference: Mapped[str | None] = mapped_column(String(8), nullable=True)
     division: Mapped[str | None] = mapped_column(String(16), nullable=True)
 
-    home_games: Mapped[list["Game"]] = relationship(
+    home_games: Mapped[list[Game]] = relationship(
         back_populates="home_team", foreign_keys="Game.home_team_id"
     )
-    away_games: Mapped[list["Game"]] = relationship(
+    away_games: Mapped[list[Game]] = relationship(
         back_populates="away_team", foreign_keys="Game.away_team_id"
     )
-    team_game_statistics: Mapped[list["TeamGameStatistic"]] = relationship(
-        back_populates="team"
-    )
-    player_game_statistics: Mapped[list["PlayerGameStatistic"]] = relationship(
+    team_game_statistics: Mapped[list[TeamGameStatistic]] = relationship(back_populates="team")
+    player_game_statistics: Mapped[list[PlayerGameStatistic]] = relationship(
         back_populates="team", foreign_keys="PlayerGameStatistic.team_id"
     )
-    opponent_player_game_statistics: Mapped[list["PlayerGameStatistic"]] = relationship(
+    opponent_player_game_statistics: Mapped[list[PlayerGameStatistic]] = relationship(
         back_populates="opponent_team", foreign_keys="PlayerGameStatistic.opponent_team_id"
     )
+
 
 if TYPE_CHECKING:
     from app.models.game import Game

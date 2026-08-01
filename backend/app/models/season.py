@@ -21,7 +21,8 @@ class Season(Base, TimestampedModel):
     year: Mapped[int] = mapped_column(SmallInteger, unique=True, nullable=False, index=True)
     name: Mapped[str] = mapped_column(String(32), nullable=False, default="Regular Season")
 
-    games: Mapped[list["Game"]] = relationship(back_populates="season")
+    games: Mapped[list[Game]] = relationship(back_populates="season")
+
 
 if TYPE_CHECKING:
     from app.models.game import Game

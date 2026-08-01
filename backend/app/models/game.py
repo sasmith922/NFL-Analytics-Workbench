@@ -21,22 +21,27 @@ class Game(Base, TimestampedModel):
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    external_id: Mapped[str | None] = mapped_column(String(64), unique=True, nullable=True, index=True)
+    external_id: Mapped[str | None] = mapped_column(
+        String(64), unique=True, nullable=True, index=True
+    )
     season_id: Mapped[int] = mapped_column(ForeignKey("seasons.id"), nullable=False, index=True)
     week: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
     game_type: Mapped[str] = mapped_column(String(16), nullable=False, default="regular")
-    kickoff_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
+    kickoff_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, index=True
+    )
     home_team_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False, index=True)
     away_team_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False, index=True)
     home_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     away_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     venue: Mapped[str | None] = mapped_column(String(128), nullable=True)
 
-    season: Mapped["Season"] = relationship(back_populates="games")
-    home_team: Mapped["Team"] = relationship(back_populates="home_games", foreign_keys=[home_team_id])
-    away_team: Mapped["Team"] = relationship(back_populates="away_games", foreign_keys=[away_team_id])
-    team_statistics: Mapped[list["TeamGameStatistic"]] = relationship(back_populates="game")
-    player_statistics: Mapped[list["PlayerGameStatistic"]] = relationship(back_populates="game")
+    season: Mapped[Season] = relationship(back_populates="games")
+    home_team: Mapped[Team] = relationship(back_populates="home_games", foreign_keys=[home_team_id])
+    away_team: Mapped[Team] = relationship(back_populates="away_games", foreign_keys=[away_team_id])
+    team_statistics: Mapped[list[TeamGameStatistic]] = relationship(back_populates="game")
+    player_statistics: Mapped[list[PlayerGameStatistic]] = relationship(back_populates="game")
+
 
 if TYPE_CHECKING:
     from app.models.player_game_statistic import PlayerGameStatistic

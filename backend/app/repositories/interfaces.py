@@ -73,7 +73,9 @@ class PlayerGameStatisticRepositoryInterface(ABC):
         """List player stats for one game."""
 
     @abstractmethod
-    def list_for_player(self, player_id: int, season_id: int | None = None) -> Sequence[PlayerGameStatistic]:
+    def list_for_player(
+        self, player_id: int, season_id: int | None = None
+    ) -> Sequence[PlayerGameStatistic]:
         """List player stats across all games, optionally by season."""
 
 
@@ -83,5 +85,7 @@ class TeamGameStatisticRepositoryInterface(ABC):
         """List both teams' stats for one game."""
 
     @abstractmethod
-    def list_for_team(self, team_id: int, season_id: int | None = None) -> Sequence[TeamGameStatistic]:
+    def list_for_team(
+        self, team_id: int, season_id: int | None = None
+    ) -> Sequence[TeamGameStatistic]:
         """List team stats across games, optionally by season."""

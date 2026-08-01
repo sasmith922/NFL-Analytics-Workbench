@@ -25,7 +25,9 @@ class PlayerGameStatistic(Base, TimestampedModel):
     game_id: Mapped[int] = mapped_column(ForeignKey("games.id"), nullable=False, index=True)
     player_id: Mapped[int] = mapped_column(ForeignKey("players.id"), nullable=False, index=True)
     team_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False, index=True)
-    opponent_team_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False, index=True)
+    opponent_team_id: Mapped[int] = mapped_column(
+        ForeignKey("teams.id"), nullable=False, index=True
+    )
 
     passing_attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     passing_completions: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
@@ -45,14 +47,15 @@ class PlayerGameStatistic(Base, TimestampedModel):
     sacks: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     tackles: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
-    game: Mapped["Game"] = relationship(back_populates="player_statistics")
-    player: Mapped["Player"] = relationship(back_populates="game_statistics")
-    team: Mapped["Team"] = relationship(
+    game: Mapped[Game] = relationship(back_populates="player_statistics")
+    player: Mapped[Player] = relationship(back_populates="game_statistics")
+    team: Mapped[Team] = relationship(
         back_populates="player_game_statistics", foreign_keys=[team_id]
     )
-    opponent_team: Mapped["Team"] = relationship(
+    opponent_team: Mapped[Team] = relationship(
         back_populates="opponent_player_game_statistics", foreign_keys=[opponent_team_id]
     )
+
 
 if TYPE_CHECKING:
     from app.models.game import Game

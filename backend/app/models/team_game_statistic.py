@@ -31,8 +31,9 @@ class TeamGameStatistic(Base, TimestampedModel):
     penalty_yards: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     time_of_possession_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
-    game: Mapped["Game"] = relationship(back_populates="team_statistics")
-    team: Mapped["Team"] = relationship(back_populates="team_game_statistics")
+    game: Mapped[Game] = relationship(back_populates="team_statistics")
+    team: Mapped[Team] = relationship(back_populates="team_game_statistics")
+
 
 if TYPE_CHECKING:
     from app.models.game import Game
