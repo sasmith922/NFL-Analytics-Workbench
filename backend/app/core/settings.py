@@ -20,6 +20,16 @@ class Settings(BaseSettings):
     postgres_password: str = Field(default="nfl_password", alias="POSTGRES_PASSWORD")
     postgres_host: str = Field(default="postgres", alias="POSTGRES_HOST")
     postgres_port: int = Field(default=5432, alias="POSTGRES_PORT")
+    database_url: str | None = Field(default=None, alias="DATABASE_URL")
+
+    @property
+    def sqlalchemy_database_url(self) -> str:
+        if self.database_url is not None:
+            return self.database_url
+        return (
+            f"postgresql+psycopg://{self.postgres_user}:{self.postgres_password}"
+            f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
+        )
 
 
 @lru_cache
