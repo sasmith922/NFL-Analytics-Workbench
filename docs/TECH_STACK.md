@@ -2,46 +2,25 @@
 
 ## Backend
 
-FastAPI
-
-Reason:
-Modern, async, type-safe API framework.
-
----
-
-SQLAlchemy
-
-Reason:
-ORM with excellent PostgreSQL support.
-
----
-
-Polars
-
-Reason:
-High-performance dataframe operations.
-
----
+- Python 3.12
+- FastAPI
+- Pydantic Settings
+- Uvicorn
+- Ruff + Mypy + Pytest
 
 ## Frontend
 
-React
-
-Reason:
-Large ecosystem and reusable components.
-
----
-
-Plotly
-
-Reason:
-Interactive analytical visualizations.
-
----
+- React 19
+- TypeScript
+- Vite
+- Vitest + Testing Library
+- Oxlint + Prettier
 
 ## Database
 
-PostgreSQL
+- PostgreSQL 16
 
-Reason:
-Reliable relational database with excellent analytical capabilities.
+## Tooling
+
+- Docker Compose
+- Pre-commit hooks

@@ -1,71 +1,43 @@
 # Architecture
 
-## Philosophy
+## System Boundaries
 
-Every part of the system should have one responsibility.
+The project is divided into four independent systems:
 
-The application is divided into four independent systems.
+1. **pipeline/** - data ingestion and transformation only
+2. **database/** - PostgreSQL schema and lifecycle assets
+3. **backend/** - API and business logic boundary
+4. **frontend/** - presentation and user interaction boundary
 
-- Data Pipeline
-- Database
-- Backend API
-- Frontend
+## Responsibility Rules
 
-These systems communicate through well-defined interfaces.
+- Frontend never accesses external data providers directly
+- Backend never performs ingestion or scraping
+- Pipeline never contains application feature logic
+- Database is the single source of truth for application data
 
----
+## Backend Structure
 
-## Design Principles
+`backend/app` is organized into:
 
-- Clean Architecture
-- Separation of concerns
-- Dependency inversion
-- Modular design
-- Extensibility
-- Testability
+- `api` (routing)
+- `services` (business logic)
+- `repositories` (data access)
+- `models` (persistence models)
+- `schemas` (request/response contracts)
+- `core` (cross-cutting config such as settings and logging)
+- `ml` (machine-learning integration boundary)
 
----
+## Frontend Structure
 
-## Responsibilities
+`frontend/src` is organized into:
 
-### Pipeline
+- `components`, `pages`, `hooks`, `api`, `charts`, `tables`, `types`, `utils`
 
-Responsible for collecting, validating, transforming, and loading data.
+## Pipeline Structure
 
-Never contains application logic.
+Pipeline stages are isolated into:
 
----
+- `extract`, `validate`, `transform`, `load`, `verify`
 
-### Database
-
-Single source of truth.
-
-Stores all historical and derived data.
-
----
-
-### Backend
-
-Responsible for business logic.
-
-Never scrapes data.
-
-Never performs frontend rendering.
-
----
-
-### Frontend
-
-Responsible only for user interaction.
-
-Never performs statistical calculations.
-
-Never accesses raw data sources directly.
-
----
-
-## Future Expansion
-
-The architecture should support additional sports without requiring major refactoring.
-
-NFL-specific logic should remain isolated where appropriate.
+Each stage is intended to be independently testable and replaceable.

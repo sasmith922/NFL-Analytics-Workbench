@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: frontend-lint
+        name: frontend-lint
+        entry: npm --prefix frontend run lint
+        language: system
+        pass_filenames: false
+      - id: frontend-format-check
+        name: frontend-format-check
+        entry: npm --prefix frontend run format:check
+        language: system
+        pass_filenames: false
+      - id: frontend-test
+        name: frontend-test
+        entry: npm --prefix frontend run test
+        language: system
+        pass_filenames: false
