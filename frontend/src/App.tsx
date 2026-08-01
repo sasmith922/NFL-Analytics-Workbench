@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 
 function App() {
   return (
@@ -6,7 +6,7 @@ function App() {
       <h1>NFL Analytics Workbench</h1>
       <p>Foundation environment is ready for feature development.</p>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
